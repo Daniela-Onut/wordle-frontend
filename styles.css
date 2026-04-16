@@ -30,12 +30,15 @@ select {
   padding: 24px;
 }
 
+.app-header > div:first-child {
+  text-align: center;
+  flex: 1;
+}
+
 .app-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 16px;
-  margin-bottom: 24px;
 }
 
 .app-header h1 {
@@ -64,7 +67,8 @@ select {
 
 .auth-card {
   max-width: 520px;
-  margin-bottom: 24px;
+  margin: 0 auto 24px auto;
+  margin-top: 30px;
 }
 
 .app-main > section:not(.hidden) {
