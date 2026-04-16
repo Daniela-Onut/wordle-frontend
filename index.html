@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wordle Project</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="app-header">
+        <div>
+          <h1>Wordle Project</h1>
+          <p class="subtitle">Classic + Daily Wordle frontend</p>
+        </div>
+        <div id="user-panel" class="user-panel hidden">
+          <span id="username-label"></span>
+          <button id="logout-button" class="button outline">Logout</button>
+        </div>
+      </header>
+
+      <main class="app-main">
+        <section id="auth-section" class="card auth-card">
+          <h2 id="auth-heading">Login or register</h2>
+          <p class="section-copy">Use your email and password to sign in. New users can register below.</p>
+
+          <div class="toggle-row">
+            <button id="toggle-auth-button" class="button outline">Switch to Register</button>
+          </div>
+
+          <form id="auth-form" class="form-grid">
+            <label>
+              Email
+              <input id="email-input" type="email" autocomplete="email" required />
+            </label>
+            <label>
+              Password
+              <input id="password-input" type="password" autocomplete="current-password" required />
+            </label>
+            <button id="auth-submit-button" class="button">Login</button>
+          </form>
+        </section>
+
+        <section id="app-section" class="hidden">
+          <div class="layout-grid">
+            <div class="card">
+              <h2>Profile</h2>
+              <div id="profile-body" class="profile-body">
+                <div><strong>Username</strong><div id="profile-username">—</div></div>
+                <div><strong>Total games</strong><div id="profile-total-games">—</div></div>
+                <div><strong>Wins</strong><div id="profile-wins">—</div></div>
+                <div><strong>Losses</strong><div id="profile-losses">—</div></div>
+                <div><strong>Win rate</strong><div id="profile-win-rate">—</div></div>
+                <div><strong>Best streak</strong><div id="profile-best-streak">—</div></div>
+              </div>
+            </div>
+
+            <div class="card">
+              <h2>Daily challenge</h2>
+              <div id="daily-body" class="profile-body">
+                <div><strong>Date</strong><div id="daily-date">—</div></div>
+                <div><strong>Length</strong><div id="daily-length">—</div></div>
+                <div><strong>Status</strong><div id="daily-status">—</div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2>Start a game</h2>
+            <form id="start-game-form" class="form-grid compact">
+              <label>
+                Word length
+                <select id="word-length-select">
+                  <option value="4">4</option>
+                  <option value="5" selected>5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                </select>
+              </label>
+              <label>
+                Mode
+                <select id="game-mode-select">
+                  <option value="classic" selected>Classic</option>
+                  <option value="daily">Daily</option>
+                </select>
+              </label>
+              <button id="start-game-button" class="button">Start game</button>
+            </form>
+          </div>
+
+          <div id="current-game-card" class="card hidden">
+            <div class="game-card-header">
+              <div>
+                <h2 id="current-game-title">Active game</h2>
+                <div id="current-game-meta" class="meta-text"></div>
+              </div>
+              <button id="abandon-button" class="button outline">Abandon</button>
+            </div>
+            <div id="current-game-status" class="status-banner"></div>
+            <div id="guess-board" class="guess-board"></div>
+            <form id="guess-form" class="guess-form">
+              <input id="guess-input" type="text" maxlength="32" autocomplete="off" placeholder="Enter guess" />
+              <button id="guess-submit-button" class="button">Submit guess</button>
+            </form>
+          </div>
+
+          <div class="layout-grid">
+            <div class="card">
+              <h2>Recent games</h2>
+              <div id="recent-games-list" class="list-stack">No games yet.</div>
+            </div>
+            <div class="card">
+              <h2>Leaderboard</h2>
+              <div id="leaderboard-list" class="list-stack">Loading leaderboard…</div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div id="toast" class="toast hidden"></div>
+    <script src="app.js" type="module"></script>
+  </body>
+</html>
