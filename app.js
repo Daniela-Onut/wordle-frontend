@@ -202,13 +202,41 @@ function renderLeaderboard(entries) {
   }
 
   entries.forEach((entry, index) => {
+    const rank = entry.rank ?? index + 1;
+    const name = entry.username || entry.user_id || entry.id || "Player";
+    const score = entry.total_score ?? entry.score ?? 0;
+    const metaParts = [];
+
+    if (entry.total_games !== undefined) {
+      metaParts.push(`${entry.total_games} games`);
+    }
+    if (entry.wins !== undefined) {
+      metaParts.push(`${entry.wins} wins`);
+    }
+    if (entry.average_attempts_on_wins !== null && entry.average_attempts_on_wins !== undefined) {
+      metaParts.push(`${entry.average_attempts_on_wins} avg attempts`);
+    }
+    if (entry.word_length !== undefined) {
+      metaParts.push(`${entry.word_length} letters`);
+    }
+
     const item = document.createElement("div");
-    item.innerHTML = `
-      <div>
-        <strong>#${index + 1} ${entry.username ?? entry.id}</strong>
-        <div class="meta-text">${entry.word_length} letters • ${entry.score} pts</div>
-      </div>
-    `;
+    const detail = document.createElement("div");
+    const title = document.createElement("strong");
+    const meta = document.createElement("div");
+    const points = document.createElement("div");
+
+    title.textContent = `#${rank} ${name}`;
+    meta.className = "meta-text";
+    meta.textContent = metaParts.join(" - ");
+    points.textContent = `${score} pts`;
+
+    detail.appendChild(title);
+    if (metaParts.length) {
+      detail.appendChild(meta);
+    }
+    item.appendChild(detail);
+    item.appendChild(points);
     leaderboardList.appendChild(item);
   });
 }
