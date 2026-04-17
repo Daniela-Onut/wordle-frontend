@@ -148,7 +148,7 @@ function renderCurrentGame() {
   }
 
   currentGameCard.classList.remove("hidden");
-  currentGameTitle.textContent = `${currentGame.mode.toUpperCase()} game #${currentGame.id}`;
+  currentGameTitle.textContent = `${currentGame.mode.toUpperCase()} game`;
   currentGameMeta.textContent = `${currentGame.attempts_used}/${currentGame.max_attempts} attempts used • ${currentGame.word_length}-letter word`;
 
   currentGameStatus.textContent = `Status: ${currentGame.status.toUpperCase()}`;
