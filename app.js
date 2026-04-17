@@ -325,12 +325,13 @@ async function handleSubmitGuess(event) {
   }
 
   try {
-    const response = await fetchJson(`/games/${currentGame.id}/guess`, {
+    const gameId = currentGame.id;
+    const response = await fetchJson(`/games/${gameId}/guess`, {
       method: "POST",
       body: JSON.stringify({ guess }),
     });
 
-    currentGame = response.game;
+    currentGame = await fetchJson(`/games/${gameId}`);
     renderCurrentGame();
     await loadRecentGames();
     guessInput.value = "";
