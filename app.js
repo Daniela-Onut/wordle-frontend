@@ -1,5 +1,5 @@
 const CONFIG = {
-  backendUrl: "http://localhost:8000",
+  backendUrl: "http://localhost:8888",
   apiPrefix: "",
 };
 
@@ -113,7 +113,7 @@ function updateLoggedInState() {
 }
 
 function renderProfileView() {
-  profileUsername.textContent = profile?.username || "(anonymous)";
+  profileUsername.textContent = profile?.username || profile?.email || "testuser";
   profileTotalGames.textContent = String(profile?.stats?.total_games ?? 0);
   profileWins.textContent = String(profile?.stats?.wins ?? 0);
   profileLosses.textContent = String(profile?.stats?.losses ?? 0);
@@ -267,7 +267,24 @@ async function loadRecentGames() {
 
 async function loadLeaderboard() {
   const response = await fetchJson("/leaderboards/global?limit=5");
-  renderLeaderboard(response.items || []);
+  const entries = response.items || [];
+
+  renderLeaderboard(entries);
+
+  if (profile && entries.length) {
+    const match = entries.find(
+      (entry) =>
+        entry.username === profile.username ||
+        entry.user_id === profile.id ||
+        entry.id === profile.id
+    );
+
+    if (match && match.username) {
+      profile.username = match.username;
+      profileUsername.textContent = match.username;
+      usernameLabel.textContent = `Signed in as ${match.username}`;
+    }
+  }
 }
 
 async function refreshApp() {
